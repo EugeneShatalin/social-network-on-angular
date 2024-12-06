@@ -7,6 +7,7 @@ import {PostInputComponent} from '../post-input/post-input.component';
 import {CommentComponent} from './comment/comment.component';
 import {PostService} from '../../../data/services/post.service';
 import {firstValueFrom} from 'rxjs';
+import {SomeTimeAgoPipe} from '../../../helpers/pipes/some-time-ago';
 
 @Component({
   selector: 'app-post',
@@ -16,7 +17,8 @@ import {firstValueFrom} from 'rxjs';
     DatePipe,
     SvgIconComponent,
     PostInputComponent,
-    CommentComponent
+    CommentComponent,
+    SomeTimeAgoPipe
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -26,8 +28,18 @@ export class PostComponent implements OnInit{
   comments = signal<PostComment[]>([])
   postService = inject(PostService)
 
+  constructor() {
+
+  }
+
+
   async ngOnInit() {
     this.comments.set(this.post()!.comments)
+    if(this.post()?.createdAt) {
+     const string = String(this.post()?.createdAt)
+      console.log(Date.parse(string))
+    }
+
   }
 
   async onCreated() {

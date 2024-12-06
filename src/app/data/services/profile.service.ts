@@ -30,7 +30,6 @@ export class ProfileService {
     return this.http.get<Profile>(`${this.baseApiUrl}account/me`)
       .pipe(
         tap(res => this.me.set(res)),
-        tap(res => console.log(this.me()))
       )
   }
 
