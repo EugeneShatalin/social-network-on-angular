@@ -20,6 +20,7 @@ export class ProfileService {
 
   getSubscribersShortList(subsAmount = 3) {
     return this.http.get<Pageble<Profile>>(`${this.baseApiUrl}account/subscribers/`)
+      //добавили пайп, чтоб при подписке выводились только айтемы без данных пагинации
       .pipe(
         map(res => res.items.slice(0, subsAmount))
       )
@@ -32,11 +33,12 @@ export class ProfileService {
         tap(res => this.me.set(res)),
       )
   }
-
+//получение аккаунта любого пользователя по id
   getAccount(id: string) {
     return this.http.get<Profile>(`${this.baseApiUrl}account/${id}`)
   }
 
+  //редактируем данные о себе, используется на странице настроек
   patchProfile(profile: Partial<Profile>) {
     return this.http.patch<Profile>(
       `${this.baseApiUrl}account/me`,

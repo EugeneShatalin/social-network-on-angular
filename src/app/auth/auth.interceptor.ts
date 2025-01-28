@@ -15,17 +15,19 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
 //если токена нет возвращаем не измененый запрос
   if (!token) return next(req)
 
-  if(isRefreshing$.value) {
+  if (isRefreshing$.value) {
     return refreshAndProceed(authService, req, next);
   }
 
 //возвращаем измененый запрос
   return next(addToken(req, token))
     .pipe(
+      //отлавливаем ошибку если токен протух, на даном бэкенде это ошибка 403
       catchError(error => {
         if (error.status === 403) {
-         return refreshAndProceed(authService, req, next);
+          return refreshAndProceed(authService, req, next);
         }
+        //если ошибка другаю, возвращаем ее обратно в поток
         return throwError(error);
       })
     )
@@ -42,7 +44,7 @@ const refreshAndProceed = (
 
           return next(addToken(req, res.access_token))
             .pipe(
-              tap(() =>  isRefreshing$.next(false))
+              tap(() => isRefreshing$.next(false))
             )
         })
       )
@@ -60,8 +62,9 @@ const refreshAndProceed = (
 }
 
 const addToken = (req: HttpRequest<any>, token: string) => {
-// меняем запрос добавляя в header запроса токен авторизации
+               //клонируем запрос
   return req = req.clone({
+    // меняем запрос добавляя в header запроса токен авторизации
     setHeaders: {Authorization: 'Bearer ' + token}
   })
 }

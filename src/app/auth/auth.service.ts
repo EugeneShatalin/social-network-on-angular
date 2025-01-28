@@ -19,7 +19,7 @@ export class AuthService {
 
   //метод сообщающий авторизован ли пользователь
   get isAuth() {
-    //если не токина пробуем взять его из кук с помощью методов стороний библиотеки ngx-cookie-service
+    //если нет токина пробуем взять его из кук с помощью методов стороний библиотеки ngx-cookie-service
     if(!this.token) {
       this.token = this.cookieService.get('token')
       this.refreshToken = this.cookieService.get('refreshToken')
@@ -60,6 +60,7 @@ export class AuthService {
     )
   }
 
+  //функция разлогирования
   logout() {
     this.cookieService.deleteAll();
     this.token =null;
@@ -67,6 +68,7 @@ export class AuthService {
     this.router.navigate(['/login'])
   }
 
+  //функция сохраниения токена полученого от сервра
   saveTokens(res: TokenResponse) {
     this.token = res.access_token;
     this.refreshToken = res.refresh_token;

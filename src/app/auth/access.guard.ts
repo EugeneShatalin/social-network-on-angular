@@ -12,6 +12,6 @@ export const canActivteAuth = () => {
     return true;
   }
 
-  // если пользователь yt авторезирован перенаправляем на страницу авторизации
+  // если пользователь не авторезирован перенаправляем на страницу авторизации
   return inject(Router).createUrlTree(['/login'])
 }

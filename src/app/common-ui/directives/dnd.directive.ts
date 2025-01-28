@@ -7,9 +7,12 @@ import {Directive, EventEmitter, HostBinding, HostListener, Output} from '@angul
 export class DndDirective {
   @Output() fileDropped = new EventEmitter<File>();
 
+
+  //HostBinding добавляет класс fileover элементу на котором используется эта деректива, если fileover = true
   @HostBinding('class.fileover')
   fileover = false;
 
+  //HostListener слушатель событий
   @HostListener('dragover', ['$event'])
   onDragOver(event: DragEvent) {
     event.preventDefault();

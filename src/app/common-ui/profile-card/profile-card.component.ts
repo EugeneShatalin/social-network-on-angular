@@ -12,5 +12,6 @@ import {ImgUrlPipe} from '../../helpers/pipes/img-url.pipe';
   styleUrl: './profile-card.component.scss'
 })
 export class ProfileCardComponent {
+  // старый синтаксис получения входных данных через декоратор @Input
   @Input() profile!: Profile;
 }

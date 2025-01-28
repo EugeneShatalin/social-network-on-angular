@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, ElementRef, HostListener, inject, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, inject, OnDestroy, Renderer2} from '@angular/core';
 import {PostInputComponent} from '../post-input/post-input.component';
 import {PostComponent} from '../post/post.component';
 import {PostService} from '../../../data/services/post.service';
-import {firstValueFrom} from 'rxjs';
+import {debounceTime, firstValueFrom, fromEvent, Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-post-feed',
@@ -14,10 +14,12 @@ import {firstValueFrom} from 'rxjs';
   templateUrl: './post-feed.component.html',
   styleUrl: './post-feed.component.scss'
 })
-export class PostFeedComponent implements AfterViewInit {
+export class PostFeedComponent implements AfterViewInit, OnDestroy {
   postService = inject(PostService)
   hostElement = inject(ElementRef)
   r2 = inject(Renderer2)
+
+  #destroy=new Subject<void>();
 
   feed = this.postService.posts
 
@@ -32,7 +34,19 @@ export class PostFeedComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.resizeFeed()
+
+    fromEvent(window, 'resize')
+      .pipe(debounceTime(500), takeUntil(this.#destroy))
+      .subscribe(() => {
+        this.resizeFeed()
+      })
   }
+
+  ngOnDestroy() {
+    this.#destroy.next()
+    this.#destroy.complete()
+  }
+
 
   resizeFeed() {
     const {top} = this.hostElement.nativeElement.getBoundingClientRect();

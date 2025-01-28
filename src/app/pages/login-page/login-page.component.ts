@@ -27,9 +27,11 @@ export class LoginPageComponent {
 
     if(this.form.valid) {
       //ts-ignore
-      this.authService.login(this.form.value)
+      this.authService.login(this.form.value) //отправляе введеные данные в форму на сервер
         .subscribe(res => {
           //после регистрации перенапрвляем на главную страницу
+          //если авторизация прошла успешно, пользователь будет авторезирован,
+          // если нет, гард вернет его на страницу авторизации
           this.router.navigate([''])
         });
     }

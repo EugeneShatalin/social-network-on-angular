@@ -1,16 +1,18 @@
-:host{
+:host {
+  background: var(--dark-color);
+  border: 1px solid var(--light-color);
   padding: 20px;
   display: grid;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 32px 1fr;
   grid-gap: 16px;
 }
 
-.post-body{
+.post-body {
   display: grid;
   grid-gap: 12px;
 }
 
-.post__author{
+.post__author {
   color: var(--light-color);
   font-size: 14px;
   font-style: normal;
@@ -18,7 +20,7 @@
   line-height: 21px;
 }
 
-.post-created-at{
+.post-created-at {
   color: var(--light-transparent-color);
 }
 
@@ -33,13 +35,16 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
-  line-height: 16px;
+  line-height: 16px; /* 133.333% */
 }
 
 .post__comments-wrapper {
-  padding: 8px 12px 8px 0;
+  padding: 8px 0;
   max-height: 150px;
   overflow-y: scroll;
   display: grid;
   grid-gap: 8px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
 }

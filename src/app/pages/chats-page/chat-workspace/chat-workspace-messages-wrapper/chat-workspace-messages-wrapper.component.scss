@@ -1,0 +1,19 @@
+:host {
+  display: grid;
+  padding: 20px 16px 0 16px;
+  grid-template-rows: 1fr min-content;
+  grid-gap: 16px;
+  align-items: start;
+  height: calc(100% - 132px);
+}
+
+.messages-wrapper {
+  display: grid;
+  grid-gap: 12px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

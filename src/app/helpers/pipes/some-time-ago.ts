@@ -12,7 +12,6 @@ export class SomeTimeAgoPipe implements PipeTransform {
     const timePost = Date.parse(value)
 
     const differenceInMinutes = Math.round(((now - timePost) / 1000 / 60));
-    console.log(differenceInMinutes);
 
     if (differenceInMinutes <= 60) {
       return `${differenceInMinutes} минут назад`;

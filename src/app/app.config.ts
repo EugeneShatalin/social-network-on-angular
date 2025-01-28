@@ -8,6 +8,8 @@ import {authTokenInterceptor} from './auth/auth.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([authTokenInterceptor]))
+    //withInterceptors([authTokenInterceptor], здесь добавили наш интерсепкор, который будет пропускать через себя каждый
+    //запрос и  добавлять к нему токен авторизации, если токен будет отсутствовать, запрос на сервер не пройдет
+    provideHttpClient(withInterceptors([authTokenInterceptor])) //withInterceptors([authTokenInterceptor]
   ]
 };

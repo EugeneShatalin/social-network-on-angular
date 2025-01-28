@@ -7,6 +7,7 @@ import {map, switchMap, tap} from 'rxjs';
   providedIn: 'root'
 })
 export class PostService {
+  // # - в начале переменной делает её приватной на уровне нативного JS
   #http = inject(HttpClient)
 
   baseApiUrl = 'https://icherniakov.ru/yt-course/';

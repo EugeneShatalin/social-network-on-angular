@@ -29,6 +29,7 @@ export class PostInputComponent {
 
   @Output() created = new EventEmitter()
 
+  //если это ввод комментария, то вешаем класс comment
   @HostBinding('class.comment')
   get isComment() {
     return this.isCommentInput()
@@ -36,6 +37,8 @@ export class PostInputComponent {
 
   postText = ''
 
+  //функци, в которой с помощью встроенной в ангуляр библиотеки Renderer2, делаем чтоб высота
+  // блока textarea менялась по высоту текста без появления прокрутки
   onTextAreaInput(event: Event) {
     const textarea = event.target as HTMLTextAreaElement;
 

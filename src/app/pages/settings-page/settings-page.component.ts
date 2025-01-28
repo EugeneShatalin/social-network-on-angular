@@ -33,6 +33,7 @@ export class SettingsPageComponent {
   })
 
   constructor() {
+    //effect запускает выполнение переданого колбека при изминениее любого сигнала входящего в нее
     effect(() => {
       //@ts-ignore
       this.form.patchValue({
