@@ -1,0 +1,30 @@
+:host {
+  display: grid;
+  place-content: center;
+  height: 100dvh;
+}
+
+form {
+  max-width: 600px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.small-error {
+  display: none;
+}
+
+.ng-touched.ng-invalid + .small-error {
+  display: block;
+  margin: 10px 0;
+  color: tomato;
+}
+
+.date {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}

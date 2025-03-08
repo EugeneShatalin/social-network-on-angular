@@ -1,0 +1,7 @@
+:host {
+  display: grid;
+  grid-gap: 16px;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none; /* Firefox */
+}

@@ -1,0 +1,138 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+  <h4 class="h4 mb16">Информация о доставке</h4>
+
+  <label class="tt-control-label mb16">
+    Тип груза
+    <select class="tt-input" formControlName="type">
+      <option [value]="ReciverType.COAL">Уголь</option>
+      <option [value]="ReciverType.GAS">Газ</option>
+      <option [value]="ReciverType.OIL">Нефть</option>
+    </select>
+  </label>
+
+  @switch (form.controls.type.value) { @case (ReciverType.COAL) {
+  <label class="tt-control-label mb16">
+    Тонн
+    <input
+      formControlName="ton"
+      class="tt-input"
+      type="number"
+      placeholder="Введите количество тонн"
+    />
+    <small class="small-error">Это поле обязательно!</small>
+  </label>
+  } @case (ReciverType.GAS) {
+  <label class="tt-control-label mb16">
+    Кубометров
+    <input
+      formControlName="cubicMeter"
+      class="tt-input"
+      type="number"
+      placeholder="Введите количество кубометров"
+    />
+    <small class="small-error">Это поле обязательно!</small>
+  </label>
+  } @case (ReciverType.OIL) {
+  <label class="tt-control-label mb16">
+    Баррелей
+    <input
+      formControlName="barrel"
+      class="tt-input"
+      type="number"
+      placeholder="Введите количество баррелей"
+    />
+    <small class="small-error">Это поле обязательно!</small>
+  </label>
+  } }
+
+  <label class="tt-control-label mb16">
+    Компания
+    <input
+      formControlName="company"
+      class="tt-input"
+      type="text"
+      placeholder="Компания"
+    />
+    <small class="small-error">Это поле обязательно!</small>
+  </label>
+
+  <div>
+    <div style="display: flex; justify-content: space-between">
+      <h4 class="h6 mb16">Данные о грузе (количество и адрес доставки)</h4>
+      <button class="btn" style="width: 50px" (click)="addAddress()">+</button>
+    </div>
+
+    <div class="form-grid" [formGroup]="form">
+      @for (group of form.controls.addresses.controls; track group; let i =
+      $index) {
+
+      <!--<label class="tt-control-label">
+          Дата отправки
+          <input
+            formControlName="dateOfDispatch"
+            class="tt-input"
+            type="date"
+          />
+        </label>-->
+
+      <label class="tt-control-label date">
+        Дата прибытия (примерно)
+        <input
+          [maskito]="options"
+          formControlName="dateOfReceipt"
+          class="tt-input"
+        />
+      </label>
+
+      <label class="tt-control-label">
+        Город
+        <input
+          formControlName="city"
+          class="tt-input"
+          type="text"
+          placeholder="Город"
+        />
+      </label>
+
+      <label class="tt-control-label">
+        Улица
+        <input
+          formControlName="street"
+          class="tt-input"
+          type="text"
+          placeholder="Улица"
+        />
+      </label>
+
+      <label class="tt-control-label">
+        Дом
+        <input
+          formControlName="building"
+          class="tt-input"
+          type="text"
+          placeholder="Дом"
+        />
+      </label>
+
+      <label class="tt-control-label">
+        Склад
+        <input
+          formControlName="warehouse"
+          class="tt-input"
+          type="text"
+          placeholder="Склад"
+        />
+      </label>
+      <button
+        class="btn"
+        style="grid-column-start: 1; grid-column-end: 3"
+        (click)="deleteAddress(i)"
+      >
+        Удалить
+      </button>
+
+      }
+    </div>
+  </div>
+  <button class="btn btn-shadow mt20" type="submit">Подтвердить</button>
+</form>
