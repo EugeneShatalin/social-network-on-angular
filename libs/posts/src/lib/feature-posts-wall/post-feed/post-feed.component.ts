@@ -8,8 +8,8 @@ import {
   Renderer2,
 } from '@angular/core';
 import {
-  debounceTime,
- fromEvent,
+  debounceTime, firstValueFrom,
+  fromEvent,
   Subject,
   takeUntil,
 } from 'rxjs';
@@ -70,4 +70,11 @@ export class PostFeedComponent implements AfterViewInit, OnDestroy, OnInit {
     const height = window.innerHeight - top - 24 - 24;
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`);
   }
+
+  onCreatePost(event: {content: string, authorId: number}) {
+    console.log('onCreatePost', event);
+    this.store.dispatch(postsActions.createPost({content: event.content, authorId: event.authorId}))
+    this.store.dispatch(postsActions.fetchPosts({}))
+  }
+
 }

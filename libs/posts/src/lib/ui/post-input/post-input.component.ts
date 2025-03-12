@@ -7,14 +7,14 @@ import {
   Output,
   Renderer2,
 } from '@angular/core';
-import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
+import {NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {firstValueFrom} from 'rxjs';
 
 import {AvatarCircleComponent, SvgIconComponent} from '@tt/common-ui';
 
 import {GlobalStoreService} from '@tt/shared';
-import { PostService } from '../../data/services/post.service';
+import {PostService} from '../../data/services/post.service';
 import {Store} from '@ngrx/store';
 import {postsActions} from '../../data/store/actions';
 
@@ -36,15 +36,15 @@ export class PostInputComponent {
 
   store = inject(Store)
 
-  @Output() created = new EventEmitter();
+  @Output() createdPost = new EventEmitter<{ content: string, authorId: number}>();
+  @Output() createdCommit = new EventEmitter<{text: string, authorId: number,  postId: number}>();
 
   //если это ввод комментария, то вешаем класс comment
   @HostBinding('class.comment')
   get isComment() {
     return this.isCommentInput();
   }
-
-  postText = '';
+  postText: string = '';
 
   //функци, в которой с помощью встроенной в ангуляр библиотеки Renderer2, делаем чтоб высота
   // блока textarea менялась по высоту текста без появления прокрутки
@@ -56,32 +56,16 @@ export class PostInputComponent {
   }
 
   onCreatePost() {
+    console.log('onCreatePost post-input')
     if (!this.postText) return;
-
     if (this.isCommentInput()) {
-      firstValueFrom(
-        this.postService.createComment({
-          text: this.postText,
-          authorId: this.profile()!.id,
-          postId: this.postId(),
-        })
-      ).then(() => {
-        this.postText = '';
-        this.store.dispatch(postsActions.fetchPosts({}))
-        this.created.emit();
-      });
+      console.log('creat commit')
+      this.createdCommit.emit({text: this.postText, authorId: this.profile()!.id,  postId: this.postId()});
+      this.postText = '';
       return;
     }
-
-    firstValueFrom(
-      this.postService.createPost({
-        title: 'Клёвый пост',
-        content: this.postText,
-        authorId: this.profile()!.id,
-      })
-    ).then(() => {
-      this.store.dispatch(postsActions.fetchPosts({}))
-      this.postText = '';
-    });
+    console.log('creat post')
+    this.createdPost.emit({content: this.postText, authorId: this.profile()!.id});
+    this.postText = '';
   }
 }
