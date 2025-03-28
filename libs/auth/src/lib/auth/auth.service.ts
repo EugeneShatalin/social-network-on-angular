@@ -4,6 +4,7 @@ import { catchError, tap, throwError } from 'rxjs';
 import { TokenResponse } from './auth.interface';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import {path} from '@angular-devkit/core';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +74,7 @@ export class AuthService {
     this.token = res.access_token;
     this.refreshToken = res.refresh_token;
     //сохраняем данные авторизации в куах с помощью методов стороний библиотеки ngx-cookie-service
-    this.cookieService.set('token', this.token);
-    this.cookieService.set('refreshToken', this.refreshToken);
+    this.cookieService.set('token', this.token, {path: '/'});
+    this.cookieService.set('refreshToken', this.refreshToken, {path: '/'});
   }
 }

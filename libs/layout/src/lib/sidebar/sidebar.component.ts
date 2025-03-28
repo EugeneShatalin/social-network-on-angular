@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { AsyncPipe, NgForOf } from '@angular/common';
-import { SubscriberCardComponent } from './subscriber-card/subscriber-card.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import {AsyncPipe, NgForOf} from '@angular/common';
+import {SubscriberCardComponent} from './subscriber-card/subscriber-card.component';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
 
 import {firstValueFrom} from 'rxjs';
 import {ProfileService} from '@tt/profile';
+import {ChatService} from '@tt/chats';
 
 
 @Component({
@@ -25,10 +26,16 @@ import {ProfileService} from '@tt/profile';
 })
 export class SidebarComponent implements OnInit {
   profileService = inject(ProfileService);
+  chatService = inject(ChatService);
 
   subscribers$ = this.profileService.getSubscribersShortList();
 
+  unreadMessage = this.chatService.unreadMessage;
   me = this.profileService.me;
+
+  constructor() {
+
+  }
 
   menuItems = [
     {
@@ -50,6 +57,7 @@ export class SidebarComponent implements OnInit {
 
 
   ngOnInit(): void {
-  firstValueFrom(this.profileService.getMe());
+
+    firstValueFrom(this.profileService.getMe());
   }
 }

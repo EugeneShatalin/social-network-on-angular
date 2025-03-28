@@ -44,7 +44,6 @@ export class PostComponent {
   }*/
 
   onCreateComment(event: {text: string, authorId: number, postId: number}) {
-     console.log('onCreateComment', event);
     this.store.dispatch(postsActions.createComment({text: event.text, authorId: event.authorId, postId: event.postId}))
   }
 

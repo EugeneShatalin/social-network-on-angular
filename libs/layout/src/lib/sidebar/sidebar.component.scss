@@ -46,6 +46,13 @@
   height: 16px;
 }
 
+.menu-item__unread-message {
+  display: block;
+  padding: 5px;
+  background-color: var(--primary-color);
+  color: var(--dark-active-color);
+}
+
 .to-subscribers {
   display: flex;
   gap: 10px;

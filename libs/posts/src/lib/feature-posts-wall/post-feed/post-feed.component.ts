@@ -45,7 +45,6 @@ export class PostFeedComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log('ngOnInit');
     this.store.dispatch(postsActions.fetchPosts({}))
   }
 
