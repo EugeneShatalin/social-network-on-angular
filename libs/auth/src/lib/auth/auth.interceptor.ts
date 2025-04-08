@@ -20,6 +20,7 @@ let isRefreshing$ = new BehaviorSubject<boolean>(false);
 /*интерсептор (в других фреймворках мидел веер) "что-то стоящее по середине - перехватчик запроса"
 служет для передачи дополнительных данных с запросом в данном случае передаем данные о авторизации*/
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
+  if(req.url.includes('dadata.ru')) return next(req)
   //присваеваем данные токина из сервиса авторизации
   const authService = inject(AuthService);
   const token = authService.token;

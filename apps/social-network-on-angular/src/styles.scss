@@ -66,6 +66,11 @@ body {
   border: 1px solid var(--dark-color);
 }
 
+.svg10 {
+  width: 10px;
+  height: 10px;
+}
+
 .svg16 {
   width: 16px;
   height: 16px;
@@ -136,7 +141,7 @@ body {
   width: 100%;
   margin-top: 8px;
   display: block;
-  border: 1px solif var(--light-color);
+  border: 1px solid var(--light-color);
   border-radius: 4px;
   padding: 12px 20px;
   background: var(--dark-color);

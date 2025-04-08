@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
+  ReactiveFormsModule, ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -38,6 +39,12 @@ function getAddressForm(initialValue: Address = {}) {
     building: new FormControl<number | null>(initialValue.building ?? null),
     warehouse: new FormControl<number | null>(initialValue.warehouse ?? null),
   });
+}
+
+const validateStartWith: ValidatorFn = (control: AbstractControl) => {
+  return control.value.startsWith('я')
+    ? {startsWith: 'Я - последняя буква алфавита!'}
+    : null
 }
 
 @Component({
